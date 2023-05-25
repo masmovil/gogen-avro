@@ -1,6 +1,7 @@
 package generator
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 )
@@ -62,5 +63,12 @@ func (n *NamespaceNamer) ToPublicName(name string) string {
 		}
 	}
 	name = n.re.ReplaceAllString(name, " ")
+
+	// Truncate to 100 characters to avoid "file name too long" error
+	maxFilenameLength := 100
+	if len(name) > maxFilenameLength {
+		fmt.Printf("WARNING: truncating name %s to 100 characters: %s\n", name, name[:maxFilenameLength])
+		name = name[:maxFilenameLength]
+	}
 	return strings.Replace(strings.Title(name), " ", "", -1)
 }
