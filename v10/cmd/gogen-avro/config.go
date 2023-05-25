@@ -42,6 +42,7 @@ func parseCmdLine() config {
 	flag.StringVar(&cfg.namespacedNames, "namespaced-names", defaultNamespacedNames, "Whether to generate namespaced names for types. Default is \"none\"; \"short\" uses the last part of the namespace (last word after a separator); \"full\" uses all namespace string.")
 
 	flag.Usage = func() {
+		fmt.Println("gogen-avro masmovil")
 		fmt.Fprintf(os.Stderr, "Usage: %s [flags] <target directory> <schema files>\n\nWhere 'flags' are:\n", os.Args[0])
 		flag.PrintDefaults()
 		os.Exit(1)
