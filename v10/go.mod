@@ -1,4 +1,4 @@
-module github.com/actgardner/gogen-avro/v10
+module github.com/masmovil/gogen-avro/v10
 
 go 1.17
 
@@ -13,5 +13,3 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
 )
-
-replace github.com/actgardner/gogen-avro/v10 => github.com/masmovil/gogen-avro/v10 v10.3.0
