@@ -9,6 +9,17 @@ import (
 	avro "github.com/masmovil/gogen-avro/v10/schema"
 )
 
+// usedDefinitionNames is used to avoid duplicates
+var usedDefinitionNames map[string]string
+
+// RedefinedNames is used to match definitions in avro to redefined names
+var RedefinedNames map[avro.QualifiedName]avro.QualifiedName
+
+func init() {
+	usedDefinitionNames = make(map[string]string, 0)
+	RedefinedNames = make(map[avro.QualifiedName]avro.QualifiedName, 0)
+}
+
 // Namespace is a mapping of avro.QualifiedNames to their Definitions, used to resolve
 // type lookups within a schema.
 type Namespace struct {
@@ -33,6 +44,7 @@ func (n *Namespace) RegisterDefinition(d avro.Definition) error {
 		}
 		return nil
 	}
+
 	n.Definitions[d.AvroName()] = d
 	n.Roots = append(n.Roots, d)
 
@@ -78,6 +90,11 @@ func (n *Namespace) TypeForSchema(schemaJson []byte) (avro.AvroType, error) {
 }
 
 func (n *Namespace) decodeTypeDefinition(name, namespace string, schema interface{}) (avro.AvroType, error) {
+	// If namespace ends with a version (i.e. v1, v2, ...), use it as name prefix
+	//namespaceElements := strings.Split(namespace, ".")
+	//if len(namespaceElements) > 0 && strings.HasPrefix(namespaceElements[len(namespaceElements)-1], "v") {
+	//	name = namespaceElements[len(namespaceElements)-1] + strings.Title(name)
+	//}
 	switch schema.(type) {
 	case string:
 		typeStr := schema.(string)
@@ -458,5 +475,17 @@ func avroNameForDefinition(schemaMap map[string]interface{}, enclosing string) (
 	if namespace != "" {
 		enclosing = namespace
 	}
+
+	// Check if the name is already used for a different namespace
+	if usedNamespace, ok := usedDefinitionNames[name]; ok && usedNamespace != namespace {
+		namespaceElements := strings.Split(namespace, ".")
+		if len(namespaceElements) > 0 && strings.HasPrefix(namespaceElements[len(namespaceElements)-1], "v") {
+			newName := name + strings.ToUpper(namespaceElements[len(namespaceElements)-1])
+			RedefinedNames[avro.QualifiedName{namespace, name}] = avro.QualifiedName{namespace, newName}
+			name = newName
+		}
+	}
+	usedDefinitionNames[name] = namespace
+
 	return ParseAvroName(enclosing, name), nil
 }

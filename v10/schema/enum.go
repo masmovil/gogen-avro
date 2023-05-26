@@ -31,6 +31,10 @@ func (e *EnumDefinition) Name() string {
 	return e.GoType()
 }
 
+func (e *EnumDefinition) SetName(newName string) {
+	e.name.Name = newName
+}
+
 func (e *EnumDefinition) Doc() string {
 	return strings.ReplaceAll(e.doc, "\n", " ")
 }

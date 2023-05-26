@@ -1,6 +1,8 @@
 package flat
 
 import (
+	"strings"
+	
 	"github.com/masmovil/gogen-avro/v10/generator"
 	"github.com/masmovil/gogen-avro/v10/generator/flat/templates"
 	avro "github.com/masmovil/gogen-avro/v10/schema"
@@ -24,6 +26,15 @@ func (f *FlatPackageGenerator) Add(def avro.Node) error {
 	if err == nil {
 		// If there's a template for this definition, add it to the package
 		filename := generator.ToSnake(def.Name()) + ".go"
+		if f.files.HasFile(filename) && !strings.Contains(filename, "union_") {
+			// Add last part of namespace to generate a new file when names collide
+			recordDefinition, ok := def.(*avro.RecordDefinition)
+			if ok {
+				namespace := strings.Split(recordDefinition.AvroName().Namespace, ".")
+				namespaceSuffix := namespace[len(namespace)-1]
+				filename = namespaceSuffix + "_" + filename
+			}
+		}
 		f.files.AddFile(filename, file)
 	} else {
 		if err != templates.NoTemplateForType {
