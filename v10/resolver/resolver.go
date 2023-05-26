@@ -3,6 +3,7 @@ package resolver
 import (
 	"fmt"
 
+	"github.com/actgardner/gogen-avro/v10/parser"
 	avro "github.com/actgardner/gogen-avro/v10/schema"
 )
 
@@ -22,7 +23,15 @@ func resolveReferences(t avro.AvroType, defs map[avro.QualifiedName]avro.Definit
 	if ref, ok := t.(*avro.Reference); ok {
 		ref.Def, ok = defs[ref.TypeName]
 		if !ok {
-			return fmt.Errorf("Unable to resolve type reference %v", ref.TypeName)
+			var redefinedName avro.QualifiedName
+			if redefinedName, ok = parser.RedefinedNames[ref.TypeName]; ok {
+				ref.Def, ok = defs[redefinedName]
+				if !ok {
+					return fmt.Errorf("Unable to resolve type reference %v", ref.TypeName)
+				}
+			} else {
+				return fmt.Errorf("Unable to resolve type reference %v", ref.TypeName)
+			}
 		}
 		return nil
 	}

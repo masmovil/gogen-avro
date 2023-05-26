@@ -34,6 +34,10 @@ func (r *RecordDefinition) Name() string {
 	return generator.ToPublicName(r.name.String())
 }
 
+func (r *RecordDefinition) SetName(newName string) {
+	r.name.Name = newName
+}
+
 func (r *RecordDefinition) GoType() string {
 	return r.Name()
 }
