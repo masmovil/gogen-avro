@@ -90,11 +90,6 @@ func (n *Namespace) TypeForSchema(schemaJson []byte) (avro.AvroType, error) {
 }
 
 func (n *Namespace) decodeTypeDefinition(name, namespace string, schema interface{}) (avro.AvroType, error) {
-	// If namespace ends with a version (i.e. v1, v2, ...), use it as name prefix
-	//namespaceElements := strings.Split(namespace, ".")
-	//if len(namespaceElements) > 0 && strings.HasPrefix(namespaceElements[len(namespaceElements)-1], "v") {
-	//	name = namespaceElements[len(namespaceElements)-1] + strings.Title(name)
-	//}
 	switch schema.(type) {
 	case string:
 		typeStr := schema.(string)
