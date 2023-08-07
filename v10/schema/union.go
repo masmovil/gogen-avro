@@ -40,7 +40,7 @@ func (s *UnionField) compositeFieldName() string {
 }
 
 func (s *UnionField) Name() string {
-	if s.name == "" {
+	if s.name == "" || s.name == "msisdnUnion" || s.name == "technologyUnion" {
 		return generator.ToPublicName(s.compositeFieldName())
 	}
 	return generator.ToPublicName(s.name)
