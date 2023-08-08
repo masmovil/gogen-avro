@@ -372,6 +372,10 @@ func (n *Namespace) getTypeByName(namespace string, typeStr string, definition i
 		return avro.NewIntField(definition)
 
 	case "long":
+		definitionMap, ok := definition.(map[string]interface{})
+		if ok && definitionMap["logicalType"] == "timestamp-millis" {
+			return avro.NewLongTimestampMillisField(definition)
+		}
 		return avro.NewLongField(definition)
 
 	case "float":

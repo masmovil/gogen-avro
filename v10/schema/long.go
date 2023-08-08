@@ -18,6 +18,16 @@ func NewLongField(definition interface{}) *LongField {
 	}}
 }
 
+func NewLongTimestampMillisField(definition interface{}) *LongField {
+	return &LongField{PrimitiveField{
+		definition:       definition,
+		name:             "Long",
+		goType:           "int64",
+		serializerMethod: "vm.WriteLong",
+		unionKey:         "long.timestamp-millis",
+	}}
+}
+
 func (s *LongField) DefaultValue(lvalue string, rvalue interface{}) (string, error) {
 	if _, ok := rvalue.(float64); !ok {
 		return "", fmt.Errorf("Expected number as default for Field %v, got %q", lvalue, rvalue)
