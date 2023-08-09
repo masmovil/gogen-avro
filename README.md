@@ -1,4 +1,4 @@
-## gogen-avro
+## gogen-avro (masmovil fork)
 
 [![CircleCI](https://circleci.com/gh/actgardner/gogen-avro/tree/master.svg?style=svg)](https://circleci.com/gh/actgardner/gogen-avro/tree/master)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/actgardner/gogen-avro/master/LICENSE)
@@ -33,11 +33,36 @@ gogen-avro has two parts: a tool which you install on your system (usually on yo
 
 To generate structs, install the command-line tool (this isn't necessary for the generic package):
 
-```
-go install github.com/actgardner/gogen-avro/v10/cmd/...@latest
+```shell
+go install github.com/masmovil/gogen-avro/v10/cmd/...@latest
 ```
 
-This will put the `gogen-avro` binary in `$GOPATH/bin`, which should be part of your PATH.
+This will put the `gogen-avro-mm` binary (notice the "-mm" suffix to differentiate it from the original binary) in `$GOPATH/bin`, which should be part of your PATH.
+You might need to restart your terminal session to pick up the new binary.
+
+When running `gogen-avro-mm` you should see the following output:
+
+```shell
+masmovil fork of gogen-avro https://github.com/masmovil/gogen-avro
+Usage: gogen-avro-mm [flags] <target directory> <schema files>
+
+Where 'flags' are:
+  -containers
+        Whether to generate container writer methods.
+  -namespaced-names string
+        Whether to generate namespaced names for types. Default is "none"; "short" uses the last part of the namespace (last word after a separator); "full" uses all namespace string. (default "none")
+  -package string
+        Name of generated package. (default "avro")
+  -short-unions
+        Whether to use shorter names for Union types.
+  -sources-comment
+        Whether to include a list of sources files in the comment in generated files. (default true)
+```
+
+### Masmovil fork
+
+This fork is based on the original gogen-avro project, but it has been modified with several fixes.
+For now, the binary generates the files with the import paths to the original module in order to avoid a big-bang change.
 
 ### Generic Data
 
