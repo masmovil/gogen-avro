@@ -1,8 +1,8 @@
 package generic
 
 import (
-	"github.com/actgardner/gogen-avro/v10/schema"
-	"github.com/actgardner/gogen-avro/v10/vm/types"
+	"github.com/masmovil/gogen-avro/v10/schema"
+	"github.com/masmovil/gogen-avro/v10/vm/types"
 )
 
 type arrayDatum struct {

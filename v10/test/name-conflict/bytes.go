@@ -8,8 +8,8 @@ package avro
 import (
 	"encoding/json"
 
-	"github.com/actgardner/gogen-avro/v10/util"
-	"github.com/actgardner/gogen-avro/v10/vm/types"
+	"github.com/masmovil/gogen-avro/v10/util"
+	"github.com/masmovil/gogen-avro/v10/vm/types"
 )
 
 type Bytes []byte
