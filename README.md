@@ -34,7 +34,7 @@ gogen-avro has two parts: a tool which you install on your system (usually on yo
 To generate structs, install the command-line tool (this isn't necessary for the generic package):
 
 ```shell
-go install github.com/masmovil/gogen-avro/v10/cmd/...@latest
+go install github.com/masmovil/gogen-avro/v10/cmd/...@v10.6.0
 ```
 
 This will put the `gogen-avro-mm` binary (notice the "-mm" suffix to differentiate it from the original binary) in `$GOPATH/bin`, which should be part of your PATH.
@@ -58,6 +58,16 @@ Where 'flags' are:
   -sources-comment
         Whether to include a list of sources files in the comment in generated files. (default true)
 ```
+
+#### Using as a library replacement in go.mod
+
+Add to your go.mod:
+
+```
+replace github.com/actgardner/gogen-avro/v10 => github.com/masmovil/gogen-avro/v10 v10.6.0-replacement
+````
+
+NOTE the tag "v10.6.0-replacement" used for replacement is different than "v10.6.0" used for command line installation
 
 ### Masmovil fork
 
