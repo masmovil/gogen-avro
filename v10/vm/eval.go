@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/masmovil/gogen-avro/v10/vm/types"
+	"github.com/actgardner/gogen-avro/v10/vm/types"
 )
 
 type stackFrame struct {

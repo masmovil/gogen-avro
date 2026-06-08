@@ -37,6 +37,14 @@ To generate structs, install the command-line tool (this isn't necessary for the
 go install github.com/masmovil/gogen-avro/v10/cmd/...@v10.6.0
 ```
 
+or 
+
+```shell
+git clone https://github.com/masmovil/gogen-avro
+cd gogen-avro/v10
+go install ./cmd/...
+```
+
 This will put the `gogen-avro-mm` binary (notice the "-mm" suffix to differentiate it from the original binary) in `$GOPATH/bin`, which should be part of your PATH.
 You might need to restart your terminal session to pick up the new binary.
 
