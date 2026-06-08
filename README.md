@@ -72,10 +72,10 @@ Where 'flags' are:
 Add to your go.mod:
 
 ```
-replace github.com/actgardner/gogen-avro/v10 => github.com/masmovil/gogen-avro/v10 v10.6.0-replacement
+replace github.com/actgardner/gogen-avro/v10 => github.com/masmovil/gogen-avro/v10 v10.6.1-replacement
 ````
 
-NOTE the tag "v10.6.0-replacement" used for replacement is different than "v10.6.0" used for command line installation
+NOTE the tag "v10.6.1-replacement" used for replacement is different than "v10.6.0" used for command line installation
 
 ### Masmovil fork
 
